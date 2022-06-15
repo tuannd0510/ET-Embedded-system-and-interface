@@ -1,0 +1,7 @@
+/home/tuannd/opt/xpack-qemu-arm-2.8.0-13/bin
+/home/tuannd/.local/xPacks/@xpack-dev-tools/qemu-arm/6.2.0-2.1/.content/bin
+
+project/Binaries/file.elf -> Run As -> Run Confuraitons ...
+
+board name: STM32F4-Discovery
+device: STM32F407VG
