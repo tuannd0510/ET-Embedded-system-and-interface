@@ -1,5 +1,3 @@
-## Tutorial 2 - Working with IDE and emulator
-
 Create, build, download, run, and debug your first embedded project:
 
 Install Eclipse and Eclipse Embedded CDT: https://projects.eclipse.org/projects/iot.embed-cdt	
@@ -11,6 +9,8 @@ Run a simple debug session on an ARM target.
 Follow the instructions to fulfil the steps above: https://eclipse-embed-cdt.github.io/debug/qemu/.
 Post a screenshot here to show that you are successful in your first program.
 
+
+## Install
 ```
 sudo apt-get install curl
 curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
@@ -25,3 +25,9 @@ sudo npm install --global xpm
 xpm install --global @xpack-dev-tools/qemu-arm@latest --verbose
 
 ```
+
+## eclipse
+- Step 1: Create new project
+- Step 2: Debug Configurations
+|-- images/
+- Step 3: Run Configurations
