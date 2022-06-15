@@ -30,6 +30,8 @@ xpm install --global @xpack-dev-tools/qemu-arm@latest --verbose
 - Step 1: Create new project
 - Step 2: Debug Configurations
 
-![images-diag]
+![images-diag](https://github.com/tuannd0510/Embedded-system-and-interface/blob/main/Tutorial%202%20-%20Working%20with%20IDE%20and%20emulator/Debug1.png)
+![images-diag](https://github.com/tuannd0510/Embedded-system-and-interface/blob/main/Tutorial%202%20-%20Working%20with%20IDE%20and%20emulator/Debug2.png)
+
 
 - Step 3: Run Configurations
