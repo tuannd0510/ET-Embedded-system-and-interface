@@ -6,8 +6,9 @@ using namespace cv;
 using namespace std;
 
 int main(){
-    Mat input, intermediate , output;
-    input = imread("test.jpg", IMREAD_COLOR);
+    Mat input, intermediate, iblur, edge, output;
+
+    input = imread("/home/tuannd/workspace/Embedded-system-and-interface/subproject/Aswinth-Raj-21/src/aa.png", IMREAD_COLOR);
     if(! input.data){
         cout<<"Could not open file" << endl;
         return -1;
@@ -19,17 +20,29 @@ int main(){
 
     resize(input, intermediate, Size(620,480)); //resize 620,480
     cvtColor(intermediate, intermediate, COLOR_BGR2GRAY); // gray
-    bilateralFilter(intermediate, intermediate, 11, 17, 17, BORDER_DEFAULT); // blur
-    // Canny(intermediate, intermediate, 30,200); // perform edge detection
+    bilateralFilter(intermediate, iblur, 15, 80, 80, BORDER_DEFAULT); // blur
+    Canny(iblur, edge, 30,200); // perform edge detection
 
     // find contour
-    // findContours(intermediate, intermediate, RETR_TREE, CHAIN_APPROX_SIMPLE);
+    Mat cnts; 
+    // findContours(edge,cnts, RETR_TREE, CHAIN_APPROX_SIMPLE); // tim cac contour trong anh
+    
+    
+    // sorted(); // sap xep dien tich contour giam dan
 
+    // for (int i = 0; i < cnts; i++)
+    // {
+    //     Mat peri, approx;
+    //     peri = arcLength(i, true);
+    //     approxPolyDP(i,approx, 0.018 * peri, true);
+        
 
+    // }
+    
 
     
 
-    imshow("intermediate",intermediate);
+    imshow("intermediate",edge);
     waitKey(0);
     destroyAllWindows();
     
