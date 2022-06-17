@@ -4,11 +4,12 @@ import numpy as np
 import pytesseract
 from PIL import Image
 
-img = cv2.imread('test.jpg',cv2.IMREAD_COLOR)
+img = cv2.imread('aa.png',cv2.IMREAD_COLOR)
 img = cv2.resize(img, (620,480) )
 
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) #convert to grey scale
-gray = cv2.bilateralFilter(gray, 11, 17, 17) #Blur to reduce noise
+gray = cv2.bilateralFilter(gray, 15, 80, 80, cv2.BORDER_DEFAULT) #Blur to reduce noise
+# gray = cv2.bilateralFilter(gray, 11, 17, 17) #Blur to reduce noise
 
 edged = cv2.Canny(gray, 30, 200) #Perform Edge detection
 
@@ -24,7 +25,7 @@ screenCnt = None
 for c in cnts:
     # approximate the contour
     peri = cv2.arcLength(c, True)
-    approx = cv2.approxPolyDP(c, 0.018 * peri, True)
+    approx = cv2.approxPolyDP(c, 0.018 * peri, True,)
     # if our approximated contour has four points, then
     # we can assume that we have found our screen
     if len(approx) == 4:
