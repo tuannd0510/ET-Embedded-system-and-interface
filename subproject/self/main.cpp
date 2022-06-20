@@ -7,6 +7,18 @@
 using namespace cv;
 using namespace std;
 
+bool compareContourAreas ( std::vector<cv::Point> contour1, std::vector<cv::Point> contour2 ) {
+    double i = fabs( contourArea(cv::Mat(contour1)) );
+    double j = fabs( contourArea(cv::Mat(contour2)) );
+    return ( i < j );
+}
+
+//Compare the contour area (USB_Port_Lean is used for contour sorting)
+bool Contour_Area(vector<Point> contour1, vector<Point> contour2)
+{
+  return contourArea(contour1)< contourArea(contour2);
+}
+
 int main(){
     // VideoCapture videoCapture;
     // Mat videoFrame;
@@ -34,8 +46,8 @@ int main(){
 
 
     Mat input, intermediate, iblur, edge, output;
-
-    input = imread("/home/tuannd/workspace/Embedded-system-and-interface/subproject/Aswinth-Raj-21/src/aa.png", IMREAD_COLOR);
+    string a = "test.jpg";
+    input = imread(a, IMREAD_COLOR);
     if(! input.data){
         cout<<"Could not open file" << endl;
         return -1;
@@ -50,44 +62,79 @@ int main(){
     bilateralFilter(intermediate, iblur, 15, 80, 80, BORDER_DEFAULT); // blur
     Canny(iblur, edge, 30,200); // perform edge detection
 
-    // find contour
+    /* find contour */
     threshold(edge, edge, 128, 255, THRESH_BINARY);
 
-    vector<std::vector<cv::Point> > contours;
+    vector<vector<Point> > contours;
     Mat contourOutput = edge.clone();
     findContours(contourOutput,contours, RETR_TREE, CHAIN_APPROX_SIMPLE); // tim cac contour trong anh
     
-    //Draw the contours
-    cv::Mat contourImage(edge.size(), CV_8UC3, cv::Scalar(0,0,0));
-    cv::Scalar colors[3];
-    colors[0] = cv::Scalar(255, 0, 0);
-    colors[1] = cv::Scalar(0, 255, 0);
-    colors[2] = cv::Scalar(0, 0, 255);
-    for (size_t idx = 0; idx < contours.size(); idx++) {
-        cv::drawContours(contourImage, contours, idx, colors[idx % 3]);
+    /* sort contours */
+    sort(contours.begin(), contours.end(), compareContourAreas);
+
+    /* grab contours */
+    vector<Point> smallestContour = contours[contours.size()-1]; 
+    vector<Point> biggestContour = contours[0]; 
+    vector<Point> screenCnt;
+    Mat approx, peri; 
+    for (int i = 0; i < contours.size(); i++)
+    {
+        double peri = arcLength(contours[i],true);
+        approxPolyDP(contours[i],approx, 0.018*peri,true);
+        // cout << approx << endl;
+        // cout << "ok" << endl;
+        if (sizeof(approx) == 4){
+            screenCnt = approx;
+        }
+        break;
     }
 
-    imshow("Input Image", edge);
-    moveWindow("Input Image", 0, 0);
-    imshow("Contours", contourImage);
-    moveWindow("Contours", 200, 0);
-    waitKey(0);
-    // sorted(); // sap xep dien tich contour giam dan
-
-    // for (int i = 0; i < cnts; i++)
+    // int detection =0;
+    // if (screenCnt == )
     // {
-    //     Mat peri, approx;
-    //     peri = arcLength(i, true);
-    //     approxPolyDP(i,approx, 0.018 * peri, true);
-        
-
+    //     detection = 0;
+    // }else
+    // {
+    //     detection = 1;
     // }
     
-
+    // if (detection ==1 ){
+    //     drawContours(input, screenCnt[],-1,(0,255,0),3);
+    // }
+    
+    drawContours(input, screenCnt,-1,(0,255,0),3);
     
 
+    /* Masking the part other than the number plate */
+    Mat mask(480,620,CV_8UC3, Scalar(0,0,0));
+    drawContours(mask, screenCnt, 0,255,-1);
+    bitwise_and(input,input,mask=mask);
+
+    /* Now crop */
+    vector<vector<int>> xy;
+    // for ( int i = 0; i <mask.rows; i ++)
+    //     for ( int j = 0; j <mask.cols; j ++)
+    //         if (mask.at <int> (i, j) == 255){
+                
+    //         }
+    // int  ad[1000][1000];
+    Mat a(480,620,CV_8UC3);
+    
+    // _OutputArray();
+    // findNonZero(mask==255,a);
+
+    // for (int i = 0; i < 2; i++)
+    // {
+    //     for (int j = 0; j < 3; j++)
+    //     {
+    //         cout << ad[i][j];
+    //     }
+    // }
+        
+    /* Read the number plate */
+
     // imshow("intermediate",contours);
-    // waitKey(0);
+    waitKey(0);
     destroyAllWindows();
     
     return 0;
