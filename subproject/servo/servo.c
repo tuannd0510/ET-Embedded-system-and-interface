@@ -20,7 +20,7 @@ static struct cdev my_device;
 
 /* Variables for pwm  */
 struct pwm_device *pwm0 = NULL;
-u32 pwm_on_time = 2000000;
+u32 pwm_on_time = 1000000;
 
 /**
  * @brief Write data to buffer
@@ -28,19 +28,19 @@ u32 pwm_on_time = 2000000;
 static ssize_t driver_write(struct file *File, const char *user_buffer, size_t count, loff_t *offs) {
 	int to_copy, not_copied, delta;
 	char value;
-
+	long duty = 0;
 	/* Get amount of data to copy */
 	to_copy = min(count, sizeof(value));
 
 	/* Copy data to user */
 	not_copied = copy_from_user(&value, user_buffer, to_copy);
-
+	if (kstrtol(user_buffer, 10, &duty) < 0) printk("can't convert");
+	else{
+	printk("value: %ld", duty);
+        if (duty>1000)
 	/* Set PWM on time */
-	if(value < 'a' || value > 'j')
-		printk("Invalid Value\n");
-	else
-		pwm_config(pwm0, 100000000 * (value - 'a'), 1000000000);
-
+	pwm_config(pwm0, duty, 20000000);
+        }
 	/* Calculate data */
 	delta = to_copy - not_copied;
 
@@ -103,16 +103,14 @@ static int __init ModuleInit(void) {
 		printk("Registering of device to kernel failed!\n");
 		goto AddError;
 	}
-
 	pwm0 = pwm_request(0, "my-pwm");
 	if(pwm0 == NULL) {
 		printk("Could not get PWM0!\n");
 		goto AddError;
 	}
-
-	pwm_config(pwm0, pwm_on_time, 1000000000);
+	printk("wtf");
+	pwm_config(pwm0, pwm_on_time, 20000000);
 	pwm_enable(pwm0);
-
 	return 0;
 AddError:
 	device_destroy(my_class, my_device_nr);
@@ -135,8 +133,3 @@ static void __exit ModuleExit(void) {
 	unregister_chrdev_region(my_device_nr, 1);
 	printk("Goodbye, Kernel\n");
 }
-
-module_init(ModuleInit);
-module_exit(ModuleExit);
-
-
