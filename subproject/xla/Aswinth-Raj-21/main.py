@@ -4,7 +4,7 @@ import numpy as np
 import pytesseract
 from PIL import Image
 
-img = cv2.imread('',cv2.IMREAD_COLOR)
+img = cv2.imread('/home/tuannd/workspace/Embedded-system-and-interface/subproject/xla/self/a.png',cv2.IMREAD_COLOR)
 
 img = cv2.resize(img, (620,480) )
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) #convert to grey scale
@@ -31,8 +31,7 @@ for c in cnts:
     # if our approximated contour has four points, then
     # we can assume that we have found our screen
     if len(approx) == 4:
-        screenCnt = approx
-        
+        screenCnt = approx        
     break
 
 if screenCnt is None:

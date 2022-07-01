@@ -7,8 +7,8 @@
 
 /* Meta Information */
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Johannes 4 GNU/Linux");
-MODULE_DESCRIPTION("A simple driver to access the Hardware PWM IP");
+MODULE_AUTHOR("TuanND");
+MODULE_DESCRIPTION("access the Hardware (sg90) PWM IP");
 
 /* Variables for device and device class */
 static dev_t my_device_nr;
@@ -47,17 +47,10 @@ static ssize_t driver_write(struct file *File, const char *user_buffer, size_t c
 	return delta;
 }
 
-/**
- * @brief This function is called, when the device file is opened
- */
 static int driver_open(struct inode *device_file, struct file *instance) {
 	printk("dev_nr - open was called!\n");
 	return 0;
 }
-
-/**
- * @brief This function is called, when the device file is opened
- */
 static int driver_close(struct inode *device_file, struct file *instance) {
 	printk("dev_nr - close was called!\n");
 	return 0;
@@ -70,9 +63,6 @@ static struct file_operations fops = {
 	.write = driver_write
 };
 
-/**
- * @brief This function is called, when the module is loaded into the kernel
- */
 static int __init ModuleInit(void) {
 	printk("Hello, Kernel!\n");
 
@@ -121,9 +111,6 @@ ClassError:
 	return -1;
 }
 
-/**
- * @brief This function is called, when the module is removed from the kernel
- */
 static void __exit ModuleExit(void) {
 	pwm_disable(pwm0);
 	pwm_free(pwm0);

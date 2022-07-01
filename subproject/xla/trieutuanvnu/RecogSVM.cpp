@@ -2,10 +2,10 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/core/core.hpp>
 #include <opencv2/ml.hpp>
+#include <iostream>
 #include <dirent.h>
 #include <sys/stat.h>
 #include "feature.h"
-#include <iostream>
 
 using namespace cv;
 using namespace std;
@@ -46,6 +46,7 @@ vector<string> list_file(string folder_path)
 	closedir(dir);
 	return files;
 }
+
 char character_recognition(Mat img_character)
 {
 	//Load SVM training file OpenCV 3.1
@@ -80,6 +81,7 @@ char character_recognition(Mat img_character)
 	return c;
 
 }
+
 string SVMPredict() {
 	string licenseRecog;
 	vector<Mat> plates;
@@ -183,8 +185,9 @@ string SVMPredict() {
 
 
 int main(int argc, char* argv[]) {
-	srcImg = imread("/home/tuannd/workspace/Embedded-system-and-interface/subproject/images/car_long/282.jpg");
-	cout << " Car License Deteceted Number: " << SVMPredict() <<endl;
+	std::string path = "/home/tuannd/workspace/Embedded-system-and-interface/subproject/images/car/chup_gan/0005.JPG";
+	srcImg = imread(path);
+	cout << "Car License Deteceted Number: " << SVMPredict() <<endl;
 	waitKey(0);
 	cout << "Press any key to exit." << endl;
 	getwchar();
