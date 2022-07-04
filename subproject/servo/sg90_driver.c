@@ -7,13 +7,13 @@
 
 /* Meta Information */
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("TuanND");
+MODULE_AUTHOR("Nguyen Dinh Tuan 20182861");
 MODULE_DESCRIPTION("access the Hardware (sg90) PWM IP");
 
 /* Variables for device and device class */
-static dev_t my_device_nr;
-static struct class *my_class;
-static struct cdev my_device;
+static dev_t my_device_nr;		//
+static struct class *my_class;	//
+static struct cdev my_device;	//
 
 #define DRIVER_NAME "my_pwm_driver"
 #define DRIVER_CLASS "MyModuleClass"
@@ -36,10 +36,10 @@ static ssize_t driver_write(struct file *File, const char *user_buffer, size_t c
 	not_copied = copy_from_user(&value, user_buffer, to_copy);
 	if (kstrtol(user_buffer, 10, &duty) < 0) printk("can't convert");
 	else{
-	printk("value: %ld", duty);
-        if (duty>1000)
-	/* Set PWM on time */
-	pwm_config(pwm0, duty, 20000000);
+		printk("value: %ld", duty);
+		if (duty>1000)
+			/* Set PWM on time */
+			pwm_config(pwm0, duty, 20000000);
         }
 	/* Calculate data */
 	delta = to_copy - not_copied;
@@ -93,15 +93,18 @@ static int __init ModuleInit(void) {
 		printk("Registering of device to kernel failed!\n");
 		goto AddError;
 	}
+
 	pwm0 = pwm_request(0, "my-pwm");
 	if(pwm0 == NULL) {
 		printk("Could not get PWM0!\n");
 		goto AddError;
 	}
+
 	printk("wtf");
 	pwm_config(pwm0, pwm_on_time, 20000000);
 	pwm_enable(pwm0);
 	return 0;
+
 AddError:
 	device_destroy(my_class, my_device_nr);
 FileError:
