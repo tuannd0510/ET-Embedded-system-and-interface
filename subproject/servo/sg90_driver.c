@@ -20,7 +20,7 @@ static struct cdev my_device;	//
 
 /* Variables for pwm  */
 struct pwm_device *pwm0 = NULL;
-u32 pwm_on_time = 1000000;
+u32 pwm_on_time = 1000000; //khoi tao do rong xung ban dau. signal is high 1ms
 
 /**
  * @brief Write data to buffer
@@ -28,7 +28,7 @@ u32 pwm_on_time = 1000000;
 static ssize_t driver_write(struct file *File, const char *user_buffer, size_t count, loff_t *offs) {
 	int to_copy, not_copied, delta;
 	char value;
-	long duty = 0;
+	long duty = 0; // ns
 	/* Get amount of data to copy */
 	to_copy = min(count, sizeof(value));
 
@@ -39,7 +39,7 @@ static ssize_t driver_write(struct file *File, const char *user_buffer, size_t c
 		printk("value: %ld", duty);
 		if (duty>1000)
 			/* Set PWM on time */
-			pwm_config(pwm0, duty, 20000000);
+			pwm_config(pwm0, duty, 20000000); // duty/20ms
         }
 	/* Calculate data */
 	delta = to_copy - not_copied;
@@ -101,7 +101,7 @@ static int __init ModuleInit(void) {
 	}
 
 	printk("wtf");
-	pwm_config(pwm0, pwm_on_time, 20000000);
+	pwm_config(pwm0, pwm_on_time, 20000000); // 1ms/20ms
 	pwm_enable(pwm0);
 	return 0;
 
@@ -121,5 +121,5 @@ static void __exit ModuleExit(void) {
 	device_destroy(my_class, my_device_nr);
 	class_destroy(my_class);
 	unregister_chrdev_region(my_device_nr, 1);
-	printk("Goodbye, Kernel\n");
+	printk("sg90-Goodbye, Kernel\n");
 }
