@@ -20,6 +20,7 @@ sudo insmod /hopme/pi/HTN/src/*/*.ko
 ```
 
 ## Reference
+https://opensource.com/article/19/5/how-write-good-c-main-function
 ### rpi
 ### lcd
 ### ir-sensor
