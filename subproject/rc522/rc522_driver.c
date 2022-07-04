@@ -36,6 +36,9 @@
 #define CHANGE_KEY    5
 #define GET_ID 	      6
 
+MODULE_AUTHOR("Nguyen Dinh Tuan 20182861");
+MODULE_LICENSE("Dual BSD/GPL");	
+
 typedef unsigned char uchar;
 uchar NewKey[16]={0xff,0xff,0xff,0xff,0xff,0xff,0xff,0x07,0x80,0x69,0x00,0x00,0x00,0x00,0x00,0x00};
 
@@ -347,5 +350,4 @@ static void RC522_exit(void)
 module_init(RC522_init);
 module_exit(RC522_exit);
 
-MODULE_AUTHOR("Kien Truong Long");
-MODULE_LICENSE("Dual BSD/GPL");	
+
