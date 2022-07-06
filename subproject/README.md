@@ -5,7 +5,7 @@ sudo nano /boot/config.txt
 add new lines
 ```
 # SERVO
-dtoverlay=pwm,pin=18,func=2 
+dtoverlay=pwm,pin=12,func=4
 # lcd
 
 ```
@@ -20,6 +20,7 @@ sudo insmod /hopme/pi/HTN/src/*/*.ko
 ```
 
 ## Reference
+https://opensource.com/article/19/5/how-write-good-c-main-function
 ### rpi
 ### lcd
 ### ir-sensor

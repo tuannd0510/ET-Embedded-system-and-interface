@@ -1,3 +1,9 @@
+/**
+ * sg90 
+ * pwm - GPIO 12
+ * dtoverlay=pwm,pin=12,func=4
+ */
+
 #include <linux/module.h>
 #include <linux/init.h>
 #include <linux/fs.h>
@@ -15,12 +21,14 @@ static dev_t my_device_nr;		//
 static struct class *my_class;	//
 static struct cdev my_device;	//
 
-#define DRIVER_NAME "my_pwm_driver"
+#define DRIVER_NAME "sg90driver"
 #define DRIVER_CLASS "MyModuleClass"
 
 /* Variables for pwm  */
 struct pwm_device *pwm0 = NULL;
-u32 pwm_on_time = 1000000; //khoi tao do rong xung ban dau. signal is high 1ms
+u32 period = 20000000; // period = 20ms -> f = 50Hz
+u32 pwm_1ms = 1000000; // 1ms duty cycle = 5% 
+u32 pwm_2ms = 2000000; // 2ms duty cycle = 10% 
 
 /**
  * @brief Write data to buffer
@@ -29,22 +37,25 @@ static ssize_t driver_write(struct file *File, const char *user_buffer, size_t c
 	int to_copy, not_copied, delta;
 	char value;
 	long duty = 0; // ns
+
 	/* Get amount of data to copy */
 	to_copy = min(count, sizeof(value));
 
 	/* Copy data to user */
 	not_copied = copy_from_user(&value, user_buffer, to_copy);
+
 	if (kstrtol(user_buffer, 10, &duty) < 0) printk("can't convert");
 	else{
 		printk("value: %ld", duty);
 		if (duty>1000)
 			/* Set PWM on time */
-			pwm_config(pwm0, duty, 20000000); // duty/20ms
+			pwm_config(pwm0, duty, period); // duty/20ms
         }
 	/* Calculate data */
 	delta = to_copy - not_copied;
 
 	return delta;
+
 }
 
 static int driver_open(struct inode *device_file, struct file *instance) {
@@ -64,7 +75,7 @@ static struct file_operations fops = {
 };
 
 static int __init ModuleInit(void) {
-	printk("Hello, Kernel!\n");
+	printk("Hello, Kernel! Servo is coming\n");
 
 	/* Allocate a device nr */
 	if( alloc_chrdev_region(&my_device_nr, 0, 1, DRIVER_NAME) < 0) {
@@ -93,15 +104,13 @@ static int __init ModuleInit(void) {
 		printk("Registering of device to kernel failed!\n");
 		goto AddError;
 	}
-
 	pwm0 = pwm_request(0, "my-pwm");
 	if(pwm0 == NULL) {
 		printk("Could not get PWM0!\n");
 		goto AddError;
 	}
 
-	printk("wtf");
-	pwm_config(pwm0, pwm_on_time, 20000000); // 1ms/20ms
+	pwm_config(pwm0, pwm_1ms, period);
 	pwm_enable(pwm0);
 	return 0;
 
@@ -123,3 +132,6 @@ static void __exit ModuleExit(void) {
 	unregister_chrdev_region(my_device_nr, 1);
 	printk("sg90-Goodbye, Kernel\n");
 }
+
+module_init(ModuleInit);
+module_exit(ModuleExit);
