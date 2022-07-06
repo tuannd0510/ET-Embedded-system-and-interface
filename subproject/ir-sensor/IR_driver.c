@@ -18,16 +18,6 @@
 #include <linux/gpio.h>     //GPIO
 #include <linux/interrupt.h>
 
-/* Since debounce is not supported in Raspberry pi, I have addded this to disable 
-** the false detection (multiple IRQ trigger for one interrupt).
-** Many other hardware supports GPIO debounce, I don't want care about this even 
-** if this has any overhead. Our intention is to explain the GPIO interrupt.
-** If you want to disable this extra coding, you can comment the below macro.
-** This has been taken from : https://raspberrypi.stackexchange.com/questions/8544/gpio-interrupt-debounce
-**
-** If you want to use Hardaware Debounce, then comment this EN_DEBOUNCE.
-**
-*/
 #define EN_DEBOUNCE
 
 #ifdef EN_DEBOUNCE
@@ -63,11 +53,6 @@ static irqreturn_t gpio_irq_handler(int irq, void *dev_id)
 #endif  
   
   pr_info("Interrupt(IRQ Handler)\n");
-  
-  /*
-  ** If you don't want to call the thread fun, then you can just return
-  ** IRQ_HANDLED. If you return IRQ_WAKE_THREAD, then thread fun will be called.
-  */
   return IRQ_WAKE_THREAD;
 }
 
@@ -163,10 +148,10 @@ static ssize_t etx_write(struct file *filp, const char __user *buf, size_t len, 
   
   pr_info("Write Function : GPIO_21 Set = %c\n", rec_buf[0]);
   
-  if (rec_buf[0]=='1') {
+  if (rec_buf[0]=='0') {
     //set the GPIO value to HIGH
     gpio_set_value(GPIO_21_OUT, 1);
-  } else if (rec_buf[0]=='0') {
+  } else if (rec_buf[0]=='1') {
     //set the GPIO value to LOW
     gpio_set_value(GPIO_21_OUT, 0);
   } else {
@@ -177,7 +162,7 @@ static ssize_t etx_write(struct file *filp, const char __user *buf, size_t len, 
 }
 
 /*
-** Module Init function
+** Module Init functionss
 */
 static int __init etx_driver_init(void)
 {
