@@ -28,7 +28,7 @@ static struct cdev my_device;	//
 struct pwm_device *pwm0 = NULL;
 u32 period = 20000000; // period = 20ms -> f = 50Hz
 u32 pwm_1ms = 1000000; // 1ms duty cycle = 5% 
-u32 pwm_2ms = 2000000; // 2ms duty cycle = 10% 
+
 
 /**
  * @brief Write data to buffer

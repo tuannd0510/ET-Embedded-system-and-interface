@@ -266,7 +266,7 @@ static int lcdi2c_probe(struct i2c_client *client, const struct i2c_device_id *i
     data->major = major;
 
     lcdinit(data, topo);
-    lcdprint(data, "Hello\nI'm ATM Pin");
+    lcdprint(data, "Bai do xe \ntu dong");
 
     dev_info(&client->dev, "%ux%u LCD using bus 0x%X, at address 0x%X",
 	     data->organization.columns,
