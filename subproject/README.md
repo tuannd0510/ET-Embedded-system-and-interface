@@ -5,9 +5,26 @@ sudo nano /boot/config.txt
 add new lines
 ```
 # SERVO
-dtoverlay=pwm,pin=12,func=4
-# lcd
+dtoverlay=pwm,pin=12,func=2
+# rc522
+dtoverlay=spidev_disabler
+```
 
+## LCD
+
+```
+echo '1' > /sys/devices/virtual/alphalcd/lcdi2c/clear 
+echo '11' > /sys/devices/virtual/alphalcd/lcdi2c/position 
+echo "abc" > /dev/lcdi2c 
+```
+
+## enable SPI Interface:
+```
+sudo raspi-config
+```
+->Interface Options -> SPI -> Enable -> Finish
+```
+sudo cp spidev_disabler.dtbo /boot/overlays/
 ```
 
 ## load modules on boot (bashrc)
