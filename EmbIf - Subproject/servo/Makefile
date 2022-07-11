@@ -1,4 +1,4 @@
-obj-m += servo.o
+obj-m += sg90_driver.o
 KDIR = /lib/modules/$(shell uname -r)/build
 
 all:
