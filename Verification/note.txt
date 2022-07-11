@@ -1,0 +1,13 @@
+# PL
+- Thẻ từ được quét là thẻ hợp lệ
+- Tài khoản thẻ còn tiền
+- Bãi đõ xe còn chỗ trống
+# FOL
+- nếu bãi xe đầy sẽ không nhận thêm xe vào
+- nếu dữ liệu cảm biến trả về không có vật cản thì barrier sẽ đóng 
+- nếu xác minh thẻ không hợp lệ thì việc thanh toán và mở barrier sẽ không được thực hiện
+# TL
+- Barier luôn đóng cho đến khi có xe đến gửi và thẻ hợp lệ
+- Tiền trong thẻ vẫn giữ nguyên cho đến khi người dùng quẹt thẻ
+- Bãi đỗ xe luôn trống cho đến khi có xe vào
+
