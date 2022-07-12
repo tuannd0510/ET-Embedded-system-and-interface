@@ -9,7 +9,10 @@ dtoverlay=pwm,pin=12,func=2
 # rc522
 dtoverlay=spidev_disabler
 ```
-
+```
+echo 1000000 > /dev/sg...
+echo 2000000 > /dev/sg...
+```
 ## LCD
 
 ```
