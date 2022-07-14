@@ -1,28 +1,28 @@
 #ifndef __rc522_h__
 #define __rc522_h__
 
-#define PCD_IDLE              0x00               //È¡Ïûµ±Ç°ÃüÁî
-#define PCD_AUTHENT           0x0E               //ÑéÖ¤ÃÜÔ¿
-#define PCD_RECEIVE           0x08               //½ÓÊÕÊý¾Ý
-#define PCD_TRANSMIT          0x04               //·¢ËÍÊý¾Ý
-#define PCD_TRANSCEIVE        0x0C               //·¢ËÍ²¢½ÓÊÕÊý¾Ý
-#define PCD_RESETPHASE        0x0F               //¸´Î»
-#define PCD_CALCCRC           0x03               //CRC¼ÆËã
+#define PCD_IDLE              0x00               //È¡ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
+#define PCD_AUTHENT           0x0E               //ï¿½ï¿½Ö¤ï¿½ï¿½Ô¿
+#define PCD_RECEIVE           0x08               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define PCD_TRANSMIT          0x04               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define PCD_TRANSCEIVE        0x0C               //ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define PCD_RESETPHASE        0x0F               //ï¿½ï¿½Î»
+#define PCD_CALCCRC           0x03               //CRCï¿½ï¿½ï¿½ï¿½
 
 
-#define PICC_REQIDL           0x26               //Ñ°ÌìÏßÇøÄÚÎ´½øÈëÐÝÃß×´Ì¬
-#define PICC_REQALL           0x52               //Ñ°ÌìÏßÇøÄÚÈ«²¿¿¨
-#define PICC_ANTICOLL1        0x93               //·À³å×²
-#define PICC_ANTICOLL2        0x95               //·À³å×²
-#define PICC_AUTHENT1A        0x60               //ÑéÖ¤AÃÜÔ¿
-#define PICC_AUTHENT1B        0x61               //ÑéÖ¤BÃÜÔ¿
-#define PICC_READ             0x30               //¶Á¿é
-#define PICC_WRITE            0xA0               //Ð´¿é
-#define PICC_DECREMENT        0xC0               //¿Û¿î
-#define PICC_INCREMENT        0xC1               //³äÖµ
-#define PICC_RESTORE          0xC2               //µ÷¿éÊý¾Ýµ½»º³åÇø
-#define PICC_TRANSFER         0xB0               //±£´æ»º³åÇøÖÐÊý¾Ý
-#define PICC_HALT             0x50               //ÐÝÃß
+#define PICC_REQIDL           0x26               //Ñ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
+#define PICC_REQALL           0x52               //Ñ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½
+#define PICC_ANTICOLL1        0x93               //ï¿½ï¿½ï¿½ï¿½×²
+#define PICC_ANTICOLL2        0x95               //ï¿½ï¿½ï¿½ï¿½×²
+#define PICC_AUTHENT1A        0x60               //ï¿½ï¿½Ö¤Aï¿½ï¿½Ô¿
+#define PICC_AUTHENT1B        0x61               //ï¿½ï¿½Ö¤Bï¿½ï¿½Ô¿
+#define PICC_READ             0x30               //ï¿½ï¿½ï¿½ï¿½
+#define PICC_WRITE            0xA0               //Ð´ï¿½ï¿½
+#define PICC_DECREMENT        0xC0               //ï¿½Û¿ï¿½
+#define PICC_INCREMENT        0xC1               //ï¿½ï¿½Öµ
+#define PICC_RESTORE          0xC2               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define PICC_TRANSFER         0xB0               //ï¿½ï¿½ï¿½æ»ºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define PICC_HALT             0x50               //ï¿½ï¿½ï¿½ï¿½
 
 
 #define DEF_FIFO_LENGTH       64                 //FIFO size=64byte

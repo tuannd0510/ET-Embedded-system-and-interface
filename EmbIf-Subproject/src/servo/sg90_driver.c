@@ -10,7 +10,6 @@
 #include <linux/cdev.h>
 #include <linux/uaccess.h>
 #include <linux/pwm.h>
-#include <linux/device.h>
 
 /* Meta Information */
 MODULE_LICENSE("GPL");

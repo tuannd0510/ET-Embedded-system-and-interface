@@ -1,15 +1,24 @@
 **Step by step:**
+## 
+```
+sudo raspi-config
+```
+->Interface Options -> SPI -> Enable -> Finish
 
-    cd rc522-driver
+## 
 
-    bash setup.sh
+```
+make
+dtc spidev_disabler.dts -O dtb >spidev_disabler.dtbo
+sudo cp spidev_disabler.dtbo /boot/overlays/
+```
 
-    make
+## 
 
-    sudo insmod RFID-RC522.ko
+```
+sudo nano /boot/config.txt
+# add new line:
+dtoverlay=spidev_disabler
+```
 
-    cd test/
-
-    make 
-  
-    sudo ./test
+## Run file test

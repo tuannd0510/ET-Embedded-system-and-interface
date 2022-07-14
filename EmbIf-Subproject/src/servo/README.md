@@ -1,5 +1,14 @@
 # SG90-servo driver Raspberry Pi 3
 
+
+## 
+```
+sudo nano /boot/config.txt
+# add new lines
+dtoverlay=pwm,pin=12,func=2
+```
+
+
 ## pins configuration
 Brown   - GND
 Red     - VCC 5V
